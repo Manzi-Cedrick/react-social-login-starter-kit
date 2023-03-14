@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -123,11 +123,12 @@ const SignUp = () => {
                 </form>
             </div>
             <div className='bg-slate-800 flex justify-center place-items-center'>
-                <div className="md:w-8/12 lg:w-4/6 mb-12 md:mb-0">
+                <div className="md:w-8/12  lg:w-4/6 mb-12 md:mb-0">
                     <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                         className="w-full"
                         alt={'login-svg'}
+
                     />
                 </div>
             </div>
