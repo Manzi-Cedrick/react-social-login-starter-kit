@@ -8,7 +8,7 @@ import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
 import { Instagram, Twitch } from '@/utils/creds';
-import { InstagramLogin} from "@amraneze/react-instagram-login";
+// import { InstagramLogin} from "@amraneze/react-instagram-login";
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
         access_token: string;
@@ -235,13 +235,13 @@ const Login = () => {
                                     <FaInstagram className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Instagram
                                 </button>
-                                <InstagramLogin
+                                {/* <InstagramLogin
                                     authCallback={authHandler}
                                     appId={Instagram.client_id}
                                     appSecret={Instagram.client_secret}
                                     redirectUri={Instagram.callback_url}
                                 />
-                                
+                                 */}
                                 <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
                                     <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Twitch
