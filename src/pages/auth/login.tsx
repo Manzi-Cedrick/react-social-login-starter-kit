@@ -7,7 +7,8 @@ import Link from 'next/link'
 import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
-import { Twitch } from '@/utils/creds';
+import { Instagram, Twitch } from '@/utils/creds';
+import InstagramLogin from 'react-instagram-oauth';
 
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
@@ -123,7 +124,7 @@ const Login = () => {
         const qs = new URLSearchParams(options).toString();
         return window.location.assign(`${rootUrl}?${qs}`);
     }
-    const twitchExchangeCodeForToken = async (code:any) => {
+    const twitchExchangeCodeForToken = async (code: any) => {
         console.log("Reached this function");
         const rootUrl = "https://id.twitch.tv/oauth2/token";
         const options = {
@@ -150,7 +151,7 @@ const Login = () => {
         }
     };
 
-    const twitchAuthorize = () => {    
+    const twitchAuthorize = () => {
         const rootUrl = "https://id.twitch.tv/oauth2/authorize";
         const options = {
             redirect_uri: "http://localhost:3000/dashboard",
@@ -162,13 +163,20 @@ const Login = () => {
             scope: ["user:read:email"].join(" "),
         };
         const qs = new URLSearchParams(options).toString();
-        if(window.location.assign(`${rootUrl}?${qs}`) != null) {
+        if (window.location.assign(`${rootUrl}?${qs}`) != null) {
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get("code");
             twitchExchangeCodeForToken(code);
         }
     }
-    
+    const authInstagram = ( ) => {
+        const clientID = '9shjd8djfdure0dfdkreidf6dfjg4es2';
+        const redirectURI = 'http://localhost:3000';
+        const responseType = 'code';
+        const scope = 'user_profile';
+        const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}`;
+        return window.location.assign(url)    
+    };
     return (
         <div className='bg-[#020202] flex min-h-screen relative text-white'>
             <div className='min-w-[40vw] h-screen p-10 px-20 bg-slate-900 '>
@@ -224,10 +232,16 @@ const Login = () => {
                                     <FaTwitter className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Twitter
                                 </button>
-                                <button type='button' onClick={githubRedirect} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
+                                <button type='button' onClick={authInstagram} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
                                     <FaInstagram className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Instagram
                                 </button>
+                                {/* <InstagramLogin
+                                    authCallback={authHandler}
+                                    appId={Instagram.client_id}
+                                    appSecret={Instagram.client_secret}
+                                    redirectUri={Instagram.callback_url}
+                                /> */}
                                 <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
                                     <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Twitch
