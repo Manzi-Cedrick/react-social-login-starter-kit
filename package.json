@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amraneze/react-instagram-login": "^3.0.3",
     "@react-oauth/google": "^0.8.0",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",

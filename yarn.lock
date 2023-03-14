@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@amraneze/react-instagram-login@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@amraneze/react-instagram-login/-/react-instagram-login-3.0.3.tgz#fda37b30fe2ae384cf89879f9a95dc6d709b32b6"
+  integrity sha512-yjCq6sEIoiunx9WsIPcYLgPEHZh/k/eZtP4ET46HtU8yK8KouZchMlDa4L1eB3v3hneyiJCRVE2jIR1uYePclA==
+
 "@babel/runtime@^7.20.7":
   version "7.21.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
