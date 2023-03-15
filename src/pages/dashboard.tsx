@@ -34,25 +34,25 @@ const Dashboard = () => {
   };
   const twitchExchangeCodeForToken = async (code: any) => {
     const rootUrl = "https://id.twitch.tv/oauth2/token";
-    const options = {
-      method: "POST",
-      // mode: 'no-cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin': 'https://react-social-login-starter-kit.vercel.app'
-      },
-      body: new URLSearchParams({
-        client_id: Twitch.client_id,
-        client_secret: Twitch.client_secret,
-        code,
-        grant_type: "authorization_code",
-        redirect_uri: "https://react-social-login-starter-kit.vercel.app/dashboard",
-        scope: ["user:read:email", "user:edit"].join(" "),
-      }),
-    };
     try {
-      const res = await fetch(rootUrl, options);
+      const res = await fetch(rootUrl,
+        {
+          method: "POST",
+          mode: 'no-cors',
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Origin': 'https://react-social-login-starter-kit.vercel.app'
+          },
+          body: new URLSearchParams({
+            client_id: Twitch.client_id,
+            client_secret: Twitch.client_secret,
+            code,
+            grant_type: "authorization_code",
+            redirect_uri: "https://react-social-login-starter-kit.vercel.app/dashboard",
+            scope: ["user:read:email", "user:edit"].join(" "),
+          }),
+        });
       const data = await res.json();
       authService.setToken(data.access_token);
       return data.access_token;
