@@ -40,20 +40,15 @@ const Dashboard = () => {
       // console.log("The object data", dataObj);
       // console.log("The response", response)
       const { access_token } = response.data;
-      const { id, username } = response.data?.profile;
+    
       console.log("The access token : ", access_token);
       console.log("The profile: ", response.data?.profile);
-
-      const updatedUser = {
-        id,
-        username: username,
-      };
       const profileResponse = await axios.get(
         `/api/instagram/profile?access_token=${access_token}`
       );
       const profile = profileResponse.data;
-      console.log("The user profile:",updatedUser)
-      setUser(updatedUser);
+      console.log("The user profile:",response.data?.profile)
+      setUser(response.data?.profile);
       console.log("THe user",user)
       return { access_token, profile };
     } catch (error) {
