@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import RouteProtector from '@/utils/RouteProtection'
 import { useRouter } from 'next/router'
 
 const Dashboard = () => {
@@ -22,6 +21,7 @@ const Dashboard = () => {
 
     const { access_token } = await response.json();
 
+    console.log("the response: ",response)
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
     const profile = await profileResponse.json();
     console.log("the profile: ",profile)
@@ -31,6 +31,7 @@ const Dashboard = () => {
   const router = useRouter();
   useEffect(() => {
     const { code } = router.query;
+    console.log("The code:",code);
     fetchInstagramProfile(code)
   }, [])
   return (
