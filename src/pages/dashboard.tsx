@@ -52,7 +52,7 @@ const Dashboard = () => {
         `/api/instagram/profile?access_token=${access_token}`
       );
       const profile = profileResponse.data;
-      console.log("The user profile:",profile)
+      console.log("The user profile:",updatedUser)
       setUser(updatedUser);
       console.log("THe user",user)
       return { access_token, profile };
