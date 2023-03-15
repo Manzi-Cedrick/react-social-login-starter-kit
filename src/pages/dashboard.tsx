@@ -12,8 +12,9 @@ const Dashboard = () => {
 
     const response = await fetch(url, {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       headers: {
+        'Access-Control-Allow-Origin' : '*',
         'Content-Type': 'application/json',
         'Origin': 'https://react-social-login-starter-kit.vercel.app'
       },
