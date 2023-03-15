@@ -9,14 +9,14 @@ const Dashboard = () => {
     name: ''
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
-    console.log("authorizationCode:",authorizationCode)
+    console.log("authorizationCode:", authorizationCode)
     const dataObj = {
-      clientID : '2040498642821593',
+      clientID: '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
-      redirectURI:'https://react-social-login-starter-kit.vercel.app/dashboard',
-      grantType:'authorization_code',
-      url:'https://api.instagram.com/oauth/access_token',
-      authorizationCode: authorizationCode
+      redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
+      grantType: 'authorization_code',
+      url: 'https://api.instagram.com/oauth/access_token',
+      code: `${authorizationCode}`
     }
     // const clientID = '2040498642821593';
     // const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
@@ -32,9 +32,9 @@ const Dashboard = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Origin': 'https://react-social-login-starter-kit.vercel.app'
       },
-      body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.authorizationCode}`
+      body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
     });
-    console.log("The body info:",dataObj);
+    console.log("The body info:", dataObj);
     const { access_token } = await response.json();
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
     const profile = await profileResponse.json();
