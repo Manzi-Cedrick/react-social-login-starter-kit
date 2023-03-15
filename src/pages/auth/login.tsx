@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaEye, FaEyeSlash, FaGithub, FaInstagram, FaTwitch, FaTwitter } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaInstagram, FaTwitch, FaTwitter } from 'react-icons/fa'
 import { CodeResponse, GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
@@ -7,10 +7,8 @@ import Link from 'next/link'
 import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
-import { Instagram, Twitch } from '@/utils/creds';
-// import InstagramLogin from 'react-instagram-login';
+import { Twitch } from '@/utils/creds';
 
-// import { InstagramLogin} from "@amraneze/react-instagram-login";
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
         access_token: string;

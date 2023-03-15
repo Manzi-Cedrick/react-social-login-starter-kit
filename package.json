@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@amraneze/react-instagram-login": "^3.0.3",
     "@react-oauth/google": "^0.8.0",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
@@ -25,13 +24,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
-    "react-instagram-login": "^1.4.0",
-    "react-instagram-oauth": "^0.0.3",
     "react-toastify": "^9.1.1",
     "tailwindcss": "^3.2.7",
     "twitch-api": "^0.5.0",
     "twitch-auth": "^4.6.7",
     "twitch-js": "^2.0.0-beta.45",
     "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.3"
   }
 }
