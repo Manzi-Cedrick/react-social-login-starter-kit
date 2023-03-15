@@ -45,14 +45,10 @@ export default async function instagramHandler(
     request(options, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const { access_token } = JSON.parse(body);
-        console.log("The access token",access_token)
-
         const profileUrl = `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`;
-
         request(profileUrl, (error, response, body) => {
           if (!error && response.statusCode === 200) {
             const profile = JSON.parse(body);
-
             res.json({ access_token, profile });
           } else {
             res.status(response.statusCode).send(body);

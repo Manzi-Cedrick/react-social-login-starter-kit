@@ -29,8 +29,7 @@ const Dashboard = () => {
         code: dataObj.code
       }, {
         headers: {
-          'Content-Type': 'application/json',
-          'Origin': 'https://react-social-login-starter-kit.vercel.app'
+          'Content-Type': 'application/json'
         }
       });
   
@@ -45,6 +44,7 @@ const Dashboard = () => {
       throw error;
     }
   };
+  
   // const fetchInstagramProfile = async (authorizationCode: any) => {
   //   const code = authorizationCode;
   //   const dataObj = {
