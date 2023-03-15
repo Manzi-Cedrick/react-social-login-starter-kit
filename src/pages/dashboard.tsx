@@ -9,14 +9,14 @@ const Dashboard = () => {
     name: ''
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
-    console.log("authorizationCode:", authorizationCode)
+    const code =  authorizationCode;
     const dataObj = {
       clientID: '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
       redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
       grantType: 'authorization_code',
       url: 'https://api.instagram.com/oauth/access_token',
-      code: `${authorizationCode}`
+      code: `${code}`
     }
     // const clientID = '2040498642821593';
     // const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
