@@ -34,8 +34,8 @@ const Dashboard = () => {
       },
       body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
     });
-    console.log("The body info:", dataObj);
     const { access_token } = await response.json();
+    console.log("The response:", response);
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
     const profile = await profileResponse.json();
     setUser(profile);
