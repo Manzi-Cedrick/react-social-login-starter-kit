@@ -173,7 +173,7 @@ const Login = () => {
         const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
         const responseType = 'code';
         const scope = 'user_profile';
-        const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}`;
+        const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&instagram_auth=true`;
         return window.location.assign(url)
     };
     return (

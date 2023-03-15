@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState} from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios';
 
 const Dashboard = () => {
+  const [user,setUser] = useState({
+    name: ''
+  })
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const clientID = '2040498642821593';
     const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
@@ -22,11 +25,9 @@ const Dashboard = () => {
     });    
 
     const { access_token } = await response.json();
-
-    console.log("the response: ",response)
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
     const profile = await profileResponse.json();
-    console.log("the profile: ",profile)
+    setUser(profile);
     return { access_token, profile };
   };
   // const fetchInstagramProfile = async (authorizationCode: any) => {
@@ -66,12 +67,14 @@ const Dashboard = () => {
   const router = useRouter();
   const { code } = router.query;
   console.log("The code:", code)
+  const {instagram_auth} = router.query;
+  console.log("The instagram auth",instagram_auth)
   useEffect(() => {
     fetchInstagramProfile(code)
   }, [])
   return (
     <div>
-      <h1>Welcome Page user.</h1>
+      <h1>Welcome Page user.{user?.name}</h1>
     </div>
   )
 }
