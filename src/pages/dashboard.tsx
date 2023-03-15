@@ -15,9 +15,16 @@ const Dashboard = () => {
       mode: 'no-cors',
       headers: {
         'Access-Control-Allow-Origin' : '*',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json'
       },
-      body: `client_id=${clientID}&client_secret=${clientSecret}&grant_type=${grantType}&redirect_uri=${redirectURI}&code=${authorizationCode}`
+      // body: `client_id=${clientID}&client_secret=${clientSecret}&grant_type=${grantType}&redirect_uri=${redirectURI}&code=${authorizationCode}`
+      body: JSON.stringify({
+        client_id: clientID,
+        client_secret: clientSecret,
+        grant_type: grantType,
+        redirect_uri: redirectURI,
+        code: authorizationCode
+      })
     });
 
     const { access_token } = await response.json();
