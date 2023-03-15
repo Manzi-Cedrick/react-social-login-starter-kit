@@ -37,18 +37,22 @@ const Dashboard = () => {
           'Content-Type': 'application/json'
         }
       });
-      const {access_token}  = response.data;
+      console.log("The object data", dataObj);
+      console.log("The response", response)
+      const { access_token } = response.data;
+      const { id, username } = response.data?.profile;
+      console.log("The access token: ", response.data?.access_token);
+
+      const updatedUser = {
+        id,
+        username: username,
+      };
       const profileResponse = await axios.get(
         `/api/instagram/profile?access_token=${access_token}`
       );
       const profile = profileResponse.data;
-      console.log("Access token",access_token);
-      console.log("Access token another: ",response.data?.access_token)
-      console.log("The user profile:",profile);
-      console.log("The user profile:",response.data?.profile);
-
-      setUser(response.data?.profile);
-      console.log("THe user",user)
+      console.log("The user profile:",profile)
+      setUser(updatedUser);
       return { access_token, profile };
     } catch (error) {
       console.error(error);
