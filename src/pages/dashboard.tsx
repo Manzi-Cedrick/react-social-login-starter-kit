@@ -10,10 +10,13 @@ const Dashboard = () => {
     id: string;
     username: string;
   }
-  
+
   const [user, setUser] = useState<User>({
     id: '', username: ''
-  });  
+  });
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const code = authorizationCode;
     const dataObj = {
@@ -37,20 +40,14 @@ const Dashboard = () => {
           'Content-Type': 'application/json'
         }
       });
-      // console.log("The object data", dataObj);
-      // console.log("The response", response)
-      const { access_token } = response.data;
-    
-      console.log("The access token : ", access_token);
-      console.log("The profile: ", response.data?.profile);
+      const access_token = response.data?.access_token;
       const profileResponse = await axios.get(
         `/api/instagram/profile?access_token=${access_token}`
       );
       const profile = profileResponse.data;
-      console.log("The user profile:",response.data?.profile)
+      console.log("The user profile:", response.data?.profile)
       setUser(response.data?.profile);
-      console.log("THe user",user)
-      return { access_token, profile };
+      setUserData([access_token, profile]);
     } catch (error) {
       console.error(error);
       throw error;
@@ -87,11 +84,21 @@ const Dashboard = () => {
   const router = useRouter();
   const { code } = router.query;
   console.log("The code:", code);
-  fetchInstagramProfile(code);
+  if (code) {
+    fetchInstagramProfile(code);
+  }
   // twitchExchangeCodeForToken(code);
   return (
     <div>
-      <h1>Welcome Page user.{user?.username}</h1>
+      {userData ? (
+        <>
+          <h1>Welcome Page user.{user?.username}</h1>
+          <p>Access token: {userData[0]}</p>
+          <p>Profile: {JSON.stringify(userData[1])}</p>
+        </>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </div>
   )
 }
