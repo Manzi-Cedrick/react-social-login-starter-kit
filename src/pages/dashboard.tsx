@@ -10,13 +10,10 @@ const Dashboard = () => {
     id: string;
     username: string;
   }
-
+  
   const [user, setUser] = useState<User>({
     id: '', username: ''
-  });
-  const [userData, setUserData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  });  
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const code = authorizationCode;
     const dataObj = {
@@ -40,14 +37,19 @@ const Dashboard = () => {
           'Content-Type': 'application/json'
         }
       });
-      const {access_token} = response.data;
+      const {access_token}  = response.data;
       const profileResponse = await axios.get(
         `/api/instagram/profile?access_token=${access_token}`
       );
       const profile = profileResponse.data;
-      console.log("The user profile:", response.data?.profile)
+      console.log("Access token",access_token);
+      console.log("Access token another: ",response.data?.access_token)
+      console.log("The user profile:",profile);
+      console.log("The user profile:",response.data?.profile);
+
       setUser(response.data?.profile);
-      setUserData([access_token, profile]);
+      console.log("THe user",user)
+      return { access_token, profile };
     } catch (error) {
       console.error(error);
       throw error;
@@ -84,21 +86,11 @@ const Dashboard = () => {
   const router = useRouter();
   const { code } = router.query;
   console.log("The code:", code);
-  if (code) {
-    fetchInstagramProfile(code);
-  }
+  fetchInstagramProfile(code);
   // twitchExchangeCodeForToken(code);
   return (
     <div>
-      {userData ? (
-        <>
-          <h1>Welcome Page user.{user?.username}</h1>
-          <p>Access token: {userData[0]}</p>
-          <p>Profile: {JSON.stringify(userData[1])}</p>
-        </>
-      ) : (
-        <h1>Loading...</h1>
-      )}
+      <h1>Welcome Page user.{user?.username}</h1>
     </div>
   )
 }
