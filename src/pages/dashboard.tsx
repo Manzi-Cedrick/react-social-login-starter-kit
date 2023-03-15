@@ -28,9 +28,9 @@ const Dashboard = () => {
     return { access_token, profile };
   };
 
-  const router = useRouter();
+  const searchParams = new URLSearchParams(window.location.search);
+  const code = searchParams.get('code');
   useEffect(() => {
-    const { code } = router.query;
     console.log("The code:",code);
     fetchInstagramProfile(code)
   }, [])
