@@ -34,7 +34,7 @@ const Dashboard = () => {
     const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
     const grantType = 'authorization_code';
     const url = 'https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token';
-  
+
     try {
       const response = await axios.post(url, {
         client_id: clientID,
@@ -42,15 +42,20 @@ const Dashboard = () => {
         grant_type: grantType,
         redirect_uri: redirectURI,
         code: authorizationCode,
+      }, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       });
-  
+
       const { access_token } = response.data;
-  
+
       console.log("the response: ", response.data)
       const profileResponse = await axios.get(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
       const profile = profileResponse.data;
       console.log("the profile: ", profile)
-  
+
       return { access_token, profile };
     } catch (error) {
       console.error(error);
@@ -59,7 +64,7 @@ const Dashboard = () => {
   };
   const router = useRouter();
   const { code } = router.query;
-  console.log("The code:",code)
+  console.log("The code:", code)
   useEffect(() => {
     fetchInstagramProfile(code)
   }, [])
