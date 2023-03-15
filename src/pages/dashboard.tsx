@@ -12,9 +12,10 @@ const Dashboard = () => {
 
     const response = await fetch(url, {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
-        'Access-Control-Allow-Origin' : 'https://api.instagram.com/oauth/access_token',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Access-Control-Allow-Origin' : '*',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `client_id=${clientID}&client_secret=${clientSecret}&grant_type=${grantType}&redirect_uri=${redirectURI}&code=${authorizationCode}`
     });
