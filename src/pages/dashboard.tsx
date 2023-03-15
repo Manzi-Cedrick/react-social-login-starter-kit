@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, [])
   return (
     <div>
-
+      <h1>Welcome Page user.</h1>
     </div>
   )
 }
