@@ -11,13 +11,13 @@ const Dashboard = () => {
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const code = authorizationCode;
-    const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
+    // const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
     const dataObj = {
       clientID: '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
       redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
       grantType: 'authorization_code',
-      url: `${corsAnywhereUrl}https://api.instagram.com/oauth/access_token`,
+      url: `https://api.instagram.com/oauth/access_token`,
       code: `${code}`
     }
     const response = await fetch(dataObj.url, {
