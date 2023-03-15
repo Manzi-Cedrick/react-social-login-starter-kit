@@ -33,7 +33,7 @@ const Dashboard = () => {
     const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
     const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
     const grantType = 'authorization_code';
-    const url = 'https://cors-anywhere.herokuapp.com/https://api.instagram.com/oauth/access_token';
+    const url = 'https://api.instagram.com/oauth/access_token';
 
     try {
       const response = await axios.post(url, {
