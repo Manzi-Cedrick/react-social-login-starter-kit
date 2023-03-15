@@ -25,12 +25,13 @@ export default async function instagramHandler(
 
   try {
     const { code } = req.body as InstagramRequestData;
+    console.log("The code on backend",code)
     const data = {
       client_id: Instagram.client_id,
       client_secret: Instagram.client_secret,
       grant_type: 'authorization_code',
       redirect_uri: Instagram.callback_url,
-      code,
+      code:code,
     };
 
     const options = {

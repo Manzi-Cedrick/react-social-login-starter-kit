@@ -32,7 +32,8 @@ const Dashboard = () => {
           'Content-Type': 'application/json'
         }
       });
-  
+      console.log("The object data",dataObj);
+      console.log("The response",response)
       const { access_token } = response.data;
       const profileResponse = await axios.get(`/api/instagram/profile?access_token=${access_token}`);
       const profile = profileResponse.data;
