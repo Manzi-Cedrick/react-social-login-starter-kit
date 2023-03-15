@@ -2499,6 +2499,11 @@ react-icons@^4.8.0:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.8.0.tgz#621e900caa23b912f737e41be57f27f6b2bff445"
   integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
 
+react-instagram-login@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-instagram-login/-/react-instagram-login-1.4.0.tgz#c2419d1569a0144f0220de17e0fc3294545218ae"
+  integrity sha512-iXVYm7bvHdVsjNOmCvHDbf3DIegYg/wH2khL8nA1LGAd5WoTcauOwaZNzMtQkRm4jkfbmbUORPV4fa7kEL4bnw==
+
 react-instagram-oauth@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/react-instagram-oauth/-/react-instagram-oauth-0.0.3.tgz#646de42cbb519d50b66ce105c97226039d34abef"

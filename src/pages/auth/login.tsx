@@ -8,6 +8,8 @@ import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
 import { Instagram, Twitch } from '@/utils/creds';
+// import InstagramLogin from 'react-instagram-login';
+
 // import { InstagramLogin} from "@amraneze/react-instagram-login";
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
@@ -168,13 +170,13 @@ const Login = () => {
             twitchExchangeCodeForToken(code);
         }
     }
-    const authInstagram = ( ) => {
-        const clientID = '9shjd8djfdure0dfdkreidf6dfjg4es2';
-        const redirectURI = 'http://localhost:3000';
+    const authInstagram = () => {
+        const clientID = '2040498642821593';
+        const redirectURI = 'http://localhost:3000/dashboard';
         const responseType = 'code';
         const scope = 'user_profile';
         const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}`;
-        return window.location.assign(url)    
+        return window.location.assign(url)
     };
     return (
         <div className='bg-[#020202] flex min-h-screen relative text-white'>
@@ -236,12 +238,11 @@ const Login = () => {
                                     Sign in with Instagram
                                 </button>
                                 {/* <InstagramLogin
-                                    authCallback={authHandler}
-                                    appId={Instagram.client_id}
-                                    appSecret={Instagram.client_secret}
-                                    redirectUri={Instagram.callback_url}
-                                />
-                                 */}
+                                    clientId="ad6d0ba2753ddfe70dd3a33522df5e7a"
+                                    onSuccess={successResponseInstagram}
+                                    onFailure={failResponseInstagram}
+                                    cssClass={classes.login__btn}
+                                >Login with Instagram</InstagramLogin> */}
                                 <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
                                     <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                     Sign in with Twitch
