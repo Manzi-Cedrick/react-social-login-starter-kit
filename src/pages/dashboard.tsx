@@ -37,7 +37,7 @@ const Dashboard = () => {
       const { access_token } = response.data;
       const profileResponse = await axios.get(`/api/instagram/profile?access_token=${access_token}`);
       const profile = profileResponse.data;
-  
+      console.log("The access token:",access_token,"Profile :",profile);
       setUser(profile);
       return { access_token, profile };
     } catch (error) {

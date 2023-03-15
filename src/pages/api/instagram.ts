@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import cors from 'cors';
 import request from 'request';
 import { Instagram } from '@/utils/creds';
 
@@ -14,10 +13,6 @@ type InstagramResponseData = {
     username: string;
   };
 };
-
-const corsMiddleware = cors({
-  origin: 'https://react-social-login-starter-kit.vercel.app',
-});
 
 export default async function instagramHandler(
   req: NextApiRequest,
