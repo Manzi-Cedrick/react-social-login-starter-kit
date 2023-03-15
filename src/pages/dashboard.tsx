@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios';
+import { Twitch } from '@/utils/creds';
+import authService from '@/services/auth.service';
 
 const Dashboard = () => {
   const [user, setUser] = useState({
@@ -30,10 +32,39 @@ const Dashboard = () => {
     setUser(profile);
     return { access_token, profile };
   };
+  const twitchExchangeCodeForToken = async (code: any) => {
+    const rootUrl = "https://id.twitch.tv/oauth2/token";
+    const options = {
+      method: "POST",
+      // mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Origin': 'https://react-social-login-starter-kit.vercel.app'
+      },
+      body: new URLSearchParams({
+        client_id: Twitch.client_id,
+        client_secret: Twitch.client_secret,
+        code,
+        grant_type: "authorization_code",
+        redirect_uri: "https://react-social-login-starter-kit.vercel.app/dashboard",
+        scope: ["user:read:email", "user:edit"].join(" "),
+      }),
+    };
+    try {
+      const res = await fetch(rootUrl, options);
+      const data = await res.json();
+      authService.setToken(data.access_token);
+      return data.access_token;
+    } catch (error) {
+      return console.error(error);
+    }
+  };
   const router = useRouter();
   const { code } = router.query;
   console.log("The code:", code);
   fetchInstagramProfile(code);
+  twitchExchangeCodeForToken(code);
   return (
     <div>
       <h1>Welcome Page user.{user?.name}</h1>
