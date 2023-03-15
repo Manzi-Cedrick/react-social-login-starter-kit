@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@amraneze/react-instagram-login@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@amraneze/react-instagram-login/-/react-instagram-login-3.0.3.tgz#fda37b30fe2ae384cf89879f9a95dc6d709b32b6"
-  integrity sha512-yjCq6sEIoiunx9WsIPcYLgPEHZh/k/eZtP4ET46HtU8yK8KouZchMlDa4L1eB3v3hneyiJCRVE2jIR1uYePclA==
-
 "@babel/runtime@^7.20.7":
   version "7.21.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
@@ -534,6 +529,13 @@ axe-core@^4.6.2:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.3.tgz#fc0db6fdb65cc7a80ccf85286d91d64ababa3ece"
   integrity sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==
+
+axios-oauth-client@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/axios-oauth-client/-/axios-oauth-client-2.0.2.tgz#bfd897891f0a9dd849346066693f96ac196d8ad1"
+  integrity sha512-WyNVX5xGW3UcdoX9HKvrPb6XEIw0kOTu4oSkSVl9maHaAcJRuxNgj1HPNZ3ReAlYRqd7uXL1PENlhhYk4SeiLw==
+  dependencies:
+    qs "^6.11.0"
 
 axios@^1.3.4:
   version "1.3.4"
@@ -2459,7 +2461,7 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
-qs@^6.9.4:
+qs@^6.11.0, qs@^6.9.4:
   version "6.11.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.1.tgz#6c29dff97f0c0060765911ba65cbc9764186109f"
   integrity sha512-0wsrzgTz/kAVIeuxSjnpGC56rzYtr6JT/2BwEvMaPhFIoYa1aGO8LbzuU1R0uUYQkLpWBTOj0l/CLAJB64J6nQ==
@@ -2503,16 +2505,6 @@ react-icons@^4.8.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.8.0.tgz#621e900caa23b912f737e41be57f27f6b2bff445"
   integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
-
-react-instagram-login@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-instagram-login/-/react-instagram-login-1.4.0.tgz#c2419d1569a0144f0220de17e0fc3294545218ae"
-  integrity sha512-iXVYm7bvHdVsjNOmCvHDbf3DIegYg/wH2khL8nA1LGAd5WoTcauOwaZNzMtQkRm4jkfbmbUORPV4fa7kEL4bnw==
-
-react-instagram-oauth@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-instagram-oauth/-/react-instagram-oauth-0.0.3.tgz#646de42cbb519d50b66ce105c97226039d34abef"
-  integrity sha512-AfwntGPAmFOkxVB+uN29ohIGWdFpedj4o5FwFG/Wx3nuNxCmz7r8pd1pGfoPaJB9buu6z7dkobfTmXpMDUqt8g==
 
 react-is@^16.13.1:
   version "16.13.1"

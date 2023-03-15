@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios';
 import { Twitch } from '@/utils/creds';
 import authService from '@/services/auth.service';
+import oauth from 'axios-oauth-client'
 
 const Dashboard = () => {
   const [user, setUser] = useState({
@@ -18,23 +19,32 @@ const Dashboard = () => {
       url: 'https://api.instagram.com/oauth/access_token',
       code: `${code}`
     }
-    const response = await fetch(dataObj.url, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin': 'https://react-social-login-starter-kit.vercel.app'
-      },
-      body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
-    });
-    console.log("The data body:",dataObj)
-    const { access_token } = await response.json();
-    console.log("The response:", response);
-    const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
-    const profile = await profileResponse.json();
-    setUser(profile);
-    return { access_token, profile };
+    // const response = await fetch(dataObj.url, {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     'Origin': 'https://react-social-login-starter-kit.vercel.app'
+    //   },
+    //   body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
+    // });
+    // console.log("The data body:",dataObj)
+    // const { access_token } = await response.json();
+    // console.log("The response:", response);
+    // const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
+    // const profile = await profileResponse.json();
+    // setUser(profile);
+    // return { access_token, profile };
+    const getOwnerCredentials = oauth.ownerCredentials(
+      axios.create(),
+      'https://api.instagram.com/oauth/access_token', // OAuth 2.0 token endpoint
+      '2040498642821593',
+      '07fd638959f54656f00f2f71d9dee9ce'
+    )
+    
+    const auth = await getOwnerCredentials('USERNAME', 'PASSWORD', 'OPTIONAL_SCOPES');
+    console.log("THe auth",auth);
   };
   const twitchExchangeCodeForToken = async (code: any) => {
     const rootUrl = "https://id.twitch.tv/oauth2/token";
