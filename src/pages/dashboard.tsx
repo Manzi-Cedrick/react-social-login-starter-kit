@@ -18,15 +18,9 @@ const Dashboard = () => {
       url: 'https://api.instagram.com/oauth/access_token',
       code: `${code}`
     }
-    // const clientID = '2040498642821593';
-    // const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
-    // const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
-    // const grantType = 'authorization_code';
-    // const url = 'https://api.instagram.com/oauth/access_token';
-
     const response = await fetch(dataObj.url, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -34,6 +28,7 @@ const Dashboard = () => {
       },
       body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
     });
+    console.log("The data body:",dataObj)
     const { access_token } = await response.json();
     console.log("The response:", response);
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
