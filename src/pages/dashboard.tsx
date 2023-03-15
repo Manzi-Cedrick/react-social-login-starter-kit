@@ -11,32 +11,67 @@ const Dashboard = () => {
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const code = authorizationCode;
-    // const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com/';
     const dataObj = {
       clientID: '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
       redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
       grantType: 'authorization_code',
-      url: `https://api.instagram.com/oauth/access_token`,
+      url: `/api/instagram`, // Change the URL to the backend API URL
       code: `${code}`
+    };
+  
+    try {
+      const response = await axios.post(dataObj.url, {
+        client_id: dataObj.clientID,
+        client_secret: dataObj.clientSecret,
+        grant_type: dataObj.grantType,
+        redirect_uri: dataObj.redirectURI,
+        code: dataObj.code
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://react-social-login-starter-kit.vercel.app'
+        }
+      });
+  
+      const { access_token } = response.data;
+      const profileResponse = await axios.get(`/api/instagram/profile?access_token=${access_token}`);
+      const profile = profileResponse.data;
+  
+      setUser(profile);
+      return { access_token, profile };
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-    const response = await fetch(dataObj.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin': 'https://react-social-login-starter-kit.vercel.app'
-      },
-      body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
-    });
-    
-    const { access_token } = await response.json();
-    console.log("The response:",response)
-    const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
-    const profile = await profileResponse.json();
-    
-    setUser(profile);
-    return { access_token, profile };
   };
+  // const fetchInstagramProfile = async (authorizationCode: any) => {
+  //   const code = authorizationCode;
+  //   const dataObj = {
+  //     clientID: '2040498642821593',
+  //     clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
+  //     redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
+  //     grantType: 'authorization_code',
+  //     url: `https://api.instagram.com/oauth/access_token`,
+  //     code: `${code}`
+  //   }
+  //   const response = await fetch(dataObj.url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //       'Origin': 'https://react-social-login-starter-kit.vercel.app'
+  //     },
+  //     body: `client_id=${dataObj.clientID}&client_secret=${dataObj.clientSecret}&grant_type=${dataObj.grantType}&redirect_uri=${dataObj.redirectURI}&code=${dataObj.code}`
+  //   });
+    
+  //   const { access_token } = await response.json();
+  //   console.log("The response:",response)
+  //   const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
+  //   const profile = await profileResponse.json();
+    
+  //   setUser(profile);
+  //   return { access_token, profile };
+  // };
   
   const twitchExchangeCodeForToken = async (code: any) => {
     const rootUrl = "https://id.twitch.tv/oauth2/token";

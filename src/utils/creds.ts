@@ -9,7 +9,7 @@ export const Twitch : externalAuth = {
     callback_url: 'http://localhost:3000'
 }
 export const Instagram : externalAuth = {
-    client_id: '1393598464512376',
-    client_secret: '571af429640840fe27f4094bfacb7b62',
-    callback_url: 'http://localhost:3000'
+    client_id: '2040498642821593',
+    client_secret: '07fd638959f54656f00f2f71d9dee9ce',
+    callback_url: 'https://react-social-login-starter-kit.vercel.app/dashboard'
 }
