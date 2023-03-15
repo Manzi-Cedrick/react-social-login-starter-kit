@@ -153,7 +153,7 @@ const Login = () => {
     const twitchAuthorize = () => {
         const rootUrl = "https://id.twitch.tv/oauth2/authorize";
         const options = {
-            redirect_uri: "http://localhost:3000/dashboard",
+            redirect_uri: "https://react-social-login-starter-kit.vercel.app/dashboard",
             client_id: Twitch.client_id,
             state: "state",
             response_type: "code",
@@ -170,7 +170,7 @@ const Login = () => {
     }
     const authInstagram = () => {
         const clientID = '2040498642821593';
-        const redirectURI = 'http://localhost:3000/dashboard';
+        const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
         const responseType = 'code';
         const scope = 'user_profile';
         const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}`;
