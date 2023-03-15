@@ -40,8 +40,10 @@ const Dashboard = () => {
       // console.log("The object data", dataObj);
       // console.log("The response", response)
       const { access_token } = response.data;
-      // console.log("The access token: ", response.data?.access_token);
       const { id, username } = response.data?.profile;
+      console.log("The access token : ", access_token);
+      console.log("The profile: ", response.data?.profile);
+
       const updatedUser = {
         id,
         username: username,
@@ -52,6 +54,7 @@ const Dashboard = () => {
       const profile = profileResponse.data;
       console.log("The user profile:",profile)
       setUser(updatedUser);
+      console.log("THe user",user)
       return { access_token, profile };
     } catch (error) {
       console.error(error);
