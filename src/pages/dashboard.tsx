@@ -16,7 +16,7 @@ const Dashboard = () => {
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
       redirectURI: 'https://react-social-login-starter-kit.vercel.app/dashboard',
       grantType: 'authorization_code',
-      url: `/api/instagram`, // Change the URL to the backend API URL
+      url: `https://react-social-login-starter-kit.vercel.app/api/instagram`, // Change the URL to the backend API URL
       code: `${code}`
     };
   
