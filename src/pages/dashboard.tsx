@@ -15,7 +15,7 @@ const Dashboard = () => {
       redirectURI:'https://react-social-login-starter-kit.vercel.app/dashboard',
       grantType:'authorization_code',
       url:'https://api.instagram.com/oauth/access_token',
-      authorizationCode
+      authorizationCode: authorizationCode
     }
     // const clientID = '2040498642821593';
     // const clientSecret = '07fd638959f54656f00f2f71d9dee9ce';
