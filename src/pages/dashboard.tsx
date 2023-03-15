@@ -9,6 +9,7 @@ const Dashboard = () => {
     name: ''
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
+    console.log("authorizationCode:",authorizationCode)
     const dataObj = {
       clientID : '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
@@ -72,7 +73,7 @@ const Dashboard = () => {
   const { code } = router.query;
   console.log("The code:", code);
   fetchInstagramProfile(code);
-  twitchExchangeCodeForToken(code);
+  // twitchExchangeCodeForToken(code);
   return (
     <div>
       <h1>Welcome Page user.{user?.name}</h1>
