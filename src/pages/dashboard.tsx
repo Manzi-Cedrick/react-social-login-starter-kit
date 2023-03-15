@@ -1,9 +1,9 @@
-import React, { useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios';
 
 const Dashboard = () => {
-  const [user,setUser] = useState({
+  const [user, setUser] = useState({
     name: ''
   })
   const fetchInstagramProfile = async (authorizationCode: any) => {
@@ -17,19 +17,12 @@ const Dashboard = () => {
       method: 'POST',
       mode: 'no-cors',
       headers: {
-        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Origin': 'https://react-social-login-starter-kit.vercel.app'
       },
-      // body: `client_id=${clientID}&client_secret=${clientSecret}&grant_type=${grantType}&redirect_uri=${redirectURI}&code=${authorizationCode}`
-      body: new URLSearchParams({
-        client_id: clientID,
-        client_secret: clientSecret,
-        grant_type:grantType,
-        redirect_uri:redirectURI,
-        code: authorizationCode
-      })
-    });    
+      body: `client_id=${clientID}&client_secret=${clientSecret}&grant_type=${grantType}&redirect_uri=${redirectURI}&code=${authorizationCode}`
+    });
 
     const { access_token } = await response.json();
     const profileResponse = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`);
@@ -40,10 +33,7 @@ const Dashboard = () => {
   const router = useRouter();
   const { code } = router.query;
   console.log("The code:", code);
-
-  useEffect(() => {
-    fetchInstagramProfile(code)
-  }, [])
+  fetchInstagramProfile(code);
   return (
     <div>
       <h1>Welcome Page user.{user?.name}</h1>
