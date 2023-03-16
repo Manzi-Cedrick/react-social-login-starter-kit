@@ -25,7 +25,7 @@ const Home = () => {
           <div>
             <p className='flex gap-6'>
               Get started by
-              <Link target='_blank' href={'https://github.com/Manzi-Cedrick?tab=repositories'} className={'font-bold text-white'}>Starter Packet /</Link>
+              <Link target='_blank' href={'https://github.com/'} className={'font-bold text-white'}>Dev origins /</Link>
             </p>
           </div>
           <div>
@@ -35,7 +35,7 @@ const Home = () => {
               rel="noopener noreferrer"
             >
               By{' '}
-              <h1 className='font-bold'>Manzi Cedrick</h1>
+              <h1 className='font-bold'>Dev Origins</h1>
             </a>
           </div>
         </div>

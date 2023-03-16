@@ -8,6 +8,7 @@ import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
 import { Twitch } from '@/utils/creds';
+import axios from 'axios';
 
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
@@ -123,37 +124,10 @@ const Login = () => {
         const qs = new URLSearchParams(options).toString();
         return window.location.assign(`${rootUrl}?${qs}`);
     }
-    const twitchExchangeCodeForToken = async (code: any) => {
-        console.log("Reached this function");
-        const rootUrl = "https://id.twitch.tv/oauth2/token";
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-                client_id: Twitch.client_id,
-                client_secret: Twitch.client_secret,
-                code,
-                grant_type: "authorization_code",
-                redirect_uri: "http://localhost:3000/dashboard",
-                scope: ["user:read:email", "user:edit"].join(" "),
-            }),
-        };
-        try {
-            const res = await fetch(rootUrl, options);
-            const data = await res.json();
-            authService.setToken(data.access_token);
-            return data.access_token;
-        } catch (error) {
-            return console.error(error);
-        }
-    };
-
     const twitchAuthorize = () => {
         const rootUrl = "https://id.twitch.tv/oauth2/authorize";
         const options = {
-            redirect_uri: "https://react-social-login-starter-kit.vercel.app/dashboard",
+            redirect_uri: "https://nextjs-login-rho.vercel.app/twitch-auth",
             client_id: Twitch.client_id,
             state: "state",
             response_type: "code",
@@ -163,16 +137,14 @@ const Login = () => {
         };
         const qs = new URLSearchParams(options).toString();
         if (window.location.assign(`${rootUrl}?${qs}`) != null) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get("code");
-            twitchExchangeCodeForToken(code);
+            alert("Redirecting ..... ");
         }
     }
     const authInstagram = () => {
         const clientID = '2040498642821593';
-        const redirectURI = 'https://react-social-login-starter-kit.vercel.app/dashboard';
+        const redirectURI = 'https://nextjs-login-rho.vercel.app/instagram-auth';
         const responseType = 'code';
-        const scope = 'user_profile';
+        const scope = 'user_profile user_media';
         const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&instagram_auth=true`;
         return window.location.assign(url)
     };
