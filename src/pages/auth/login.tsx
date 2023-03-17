@@ -9,6 +9,7 @@ import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
 import { Twitch } from '@/utils/creds';
 import axios from 'axios';
+import Head from 'next/head';
 
 interface CustomCodeResponse extends Omit<CodeResponse, "error" | "error_description" | "error_uri"> {
     tokenObj: {
@@ -149,99 +150,107 @@ const Login = () => {
         return window.location.assign(url)
     };
     return (
-        <div className='bg-[#020202] flex min-h-screen relative text-white'>
-            <div className='min-w-[40vw] h-screen p-10 px-20 bg-slate-900 '>
-                <div className='bg-logo justify-center flex gap-6 font-bold text-white place-items-center'>
-                    <Logo />
-                    <h1 className='text-2xl'>Music.ly</h1>
-                </div>
-                <form onSubmit={validate}>
-                    <div className='py-6'>
-                        <h1 className='text-main text-md font-bold py-4'>Login </h1>
-                        <div className='flex flex-col gap-4 py-2'>
-                            <div>
-                                <input
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full px-8 text-white py-4 rounded-lg shadow-xl font-medium bg-slate-600 border border-main placeholder-gray-500 text-sm focus:outline-none "
-                                    type="email"
-                                    placeholder="Email"
-                                />
-                            </div>
-                            <div>
-                                <div className='flex text-white h-14 rounded-lg shadow-xl font-medium bg-slate-600 border border-main placeholder-gray-500 text-sm focus:outline-none '>
+        <>
+            <Head>
+                <title>Next JS - Social Login | Login Page</title>
+                <meta name="description" content="The Login page of the starter packet" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <div className='bg-[#020202] flex min-h-screen relative text-white'>
+                <div className='min-w-[40vw] h-screen p-10 px-20 bg-slate-900 '>
+                    <div className='bg-logo justify-center flex gap-6 font-bold text-white place-items-center'>
+                        <Logo />
+                        <h1 className='text-2xl'>Music.ly</h1>
+                    </div>
+                    <form onSubmit={validate}>
+                        <div className='py-6'>
+                            <h1 className='text-main text-md font-bold py-4'>Login </h1>
+                            <div className='flex flex-col gap-4 py-2'>
+                                <div>
                                     <input
-                                        value={formData.password}
-                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                        className="w-full bg-transparent border-none outline-none px-8 "
-                                        type={`${!showPassword ? 'text' : 'password'}`}
-                                        placeholder="Password"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        className="w-full px-8 text-white py-4 rounded-lg shadow-xl font-medium bg-slate-600 border border-main placeholder-gray-500 text-sm focus:outline-none "
+                                        type="email"
+                                        placeholder="Email"
                                     />
-                                    <div className='bg-slate-500 h-full flex place-items-center justify-center px-3 rounded-r-lg'>
-                                        {!showPassword ? <FaEye onClick={() => setShowPassword((prev) => !prev)} className='text-md' /> : <FaEyeSlash onClick={() => setShowPassword((prev) => !prev)} className='text-md' />}
+                                </div>
+                                <div>
+                                    <div className='flex text-white h-14 rounded-lg shadow-xl font-medium bg-slate-600 border border-main placeholder-gray-500 text-sm focus:outline-none '>
+                                        <input
+                                            value={formData.password}
+                                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                            className="w-full bg-transparent border-none outline-none px-8 "
+                                            type={`${!showPassword ? 'text' : 'password'}`}
+                                            placeholder="Password"
+                                        />
+                                        <div className='bg-slate-500 h-full flex place-items-center justify-center px-3 rounded-r-lg'>
+                                            {!showPassword ? <FaEye onClick={() => setShowPassword((prev) => !prev)} className='text-md' /> : <FaEyeSlash onClick={() => setShowPassword((prev) => !prev)} className='text-md' />}
+                                        </div>
+                                    </div>
+                                    <div className="flex py-2 items-center">
+                                        <input defaultChecked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 bg-main" />
+                                        <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-main">Remember the password</label>
                                     </div>
                                 </div>
-                                <div className="flex py-2 items-center">
-                                    <input defaultChecked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 bg-main" />
-                                    <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-main">Remember the password</label>
+                            </div>
+                        </div>
+                        <div className='bg-footer'>
+                            <div>
+                                <button className='w-full bg-main text-white font-semibold py-5 rounded-md text-[12px] '>
+                                    Login
+                                </button>
+                            </div>
+                            <div>
+                                <div className='w-full'>
+                                    <p className='text-slate-500 text-center py-3'> Or </p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-footer'>
-                        <div>
-                            <button className='w-full bg-main text-white font-semibold py-5 rounded-md text-[12px] '>
-                                Login
-                            </button>
-                        </div>
-                        <div>
-                            <div className='w-full'>
-                                <p className='text-slate-500 text-center py-3'> Or </p>
-                            </div>
-                            <div className='flex flex-col gap-2'>
-                                <button type='button' onClick={getTwitterOauthUrl} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
-                                    <FaTwitter className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
-                                    Sign in with Twitter
-                                </button>
-                                <button type='button' onClick={authInstagram} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
-                                    <FaInstagram className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
-                                    Sign in with Instagram
-                                </button>
-                                {/* <InstagramLogin
+                                <div className='flex flex-col gap-2'>
+                                    <button type='button' onClick={getTwitterOauthUrl} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
+                                        <FaTwitter className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
+                                        Sign in with Twitter
+                                    </button>
+                                    <button type='button' onClick={authInstagram} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
+                                        <FaInstagram className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
+                                        Sign in with Instagram
+                                    </button>
+                                    {/* <InstagramLogin
                                     clientId="ad6d0ba2753ddfe70dd3a33522df5e7a"
                                     onSuccess={successResponseInstagram}
                                     onFailure={failResponseInstagram}
                                     cssClass={classes.login__btn}
                                 >Login with Instagram</InstagramLogin> */}
-                                <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
-                                    <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
-                                    Sign in with Twitch
-                                </button>
-                                <div className='absolute top-10 right-10'>
-                                    <GoogleLogin
-                                        onSuccess={onSuccess}
-                                        onError={onFailure}
-                                    />
-                                </div>
+                                    <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
+                                        <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
+                                        Sign in with Twitch
+                                    </button>
+                                    <div className='absolute top-10 right-10'>
+                                        <GoogleLogin
+                                            onSuccess={onSuccess}
+                                            onError={onFailure}
+                                        />
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div className='text-center py-3'>
+                                <p className='text-slate-600 text-[12px]'>Already have an account <Link href='/auth/signup' className='text-indigo-500'>Sign In</Link></p>
                             </div>
                         </div>
-                        <div className='text-center py-3'>
-                            <p className='text-slate-600 text-[12px]'>Already have an account <Link href='/auth/signup' className='text-indigo-500'>Sign In</Link></p>
-                        </div>
+                    </form>
+                </div>
+                <div className='bg-slate-800 flex justify-center place-items-center'>
+                    <div className="md:w-8/12 lg:w-4/6 mb-12 md:mb-0">
+                        <img
+                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                            className="w-full"
+                            alt={'login-svg'}
+                        />
                     </div>
-                </form>
-            </div>
-            <div className='bg-slate-800 flex justify-center place-items-center'>
-                <div className="md:w-8/12 lg:w-4/6 mb-12 md:mb-0">
-                    <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                        className="w-full"
-                        alt={'login-svg'}
-                    />
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
