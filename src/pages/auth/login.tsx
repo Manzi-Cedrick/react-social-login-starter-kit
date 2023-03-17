@@ -142,7 +142,7 @@ const Login = () => {
     }
     const authInstagram = () => {
         const clientID = '2040498642821593';
-        const redirectURI = 'https://nextjs-login-rho.vercel.app/instagram-auth';
+        const redirectURI = 'https://react-social-login-starter-kit-version2.vercel.app/instagram-auth/instagram-auth';
         const responseType = 'code';
         const scope = 'user_profile user_media';
         const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&instagram_auth=true`;

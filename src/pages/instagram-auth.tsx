@@ -22,7 +22,7 @@ const InstagramAuth = () => {
     const dataObj = {
       clientID: '2040498642821593',
       clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
-      redirectURI: 'https://nextjs-login-rho.vercel.app/instagram-auth',
+      redirectURI: 'https://react-social-login-starter-kit-version2.vercel.app/instagram-auth',
       grantType: 'authorization_code',
       url: `/api/instagram`,
       code: `${code}`
