@@ -127,7 +127,7 @@ const Login = () => {
     const twitchAuthorize = () => {
         const rootUrl = "https://id.twitch.tv/oauth2/authorize";
         const options = {
-            redirect_uri: "https://nextjs-login-rho.vercel.app/twitch-auth",
+            redirect_uri: Twitch.callback_url,
             client_id: Twitch.client_id,
             state: "state",
             response_type: "code",

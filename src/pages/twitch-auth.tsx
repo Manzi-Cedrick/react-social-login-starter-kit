@@ -17,74 +17,51 @@ interface TwitchUserData {
 const TwitchAuth = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | undefined>(undefined);
+    const [twitchData, setTwitchData] = useState(null);
     const [twitchUser, setTwitchUser] = useState<TwitchUserData | undefined>(
         undefined
     );
     const router = useRouter();
-
     const exchangeCodeForToken = async (code: any) => {
-        const url = "/api/twitch";
-        const data = new URLSearchParams({
-            client_id: Twitch.client_id,
-            client_secret: Twitch.client_secret,
-            code,
-            grant_type: "authorization_code",
-            redirect_uri: `https://nextjs-login-rho.vercel.app/twitch-auth`,
-            scope: ["user:read:email", "user:edit"].join(" "),
-        });
-
-        const response = await fetch(url, {
-            method: "POST",
+        const authorization_code = code;
+        const dataObj = {
+          url: `/api/twitch`,
+          code: `${authorization_code}`,
+        };
+        const data = new URLSearchParams();
+        data.append('code', dataObj.code);
+    
+        const response = await fetch('/api/twitch', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+              'Content-Type': 'application/json',
             },
-            body: data.toString(),
-        });
-
-        if (!response.ok) {
-            const message = `Twitch authentication failed: ${response.statusText}`;
-            throw new Error(message);
-        }
-
-        const json = await response.json();
-        authService.setToken(json.access_token);
-        fetchTwitchUser(json.access_token)
-        return json.access_token;
+            body: JSON.stringify({ code }),
+          });
+    
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message);
+          }
+    
+          const dataRes = await response.json();
+          console.log("the response",dataRes)
+          setTwitchData(dataRes);
+          Cookies.set('user',dataRes?.login);
+          setLoading(false)
+          return router.push('/dashboard')
     };
-
-    const fetchTwitchUser = async (accessToken: string) => {
-        const url = "https://api.twitch.tv/helix/users";
-        const response = await fetch(url, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Client-Id": Twitch.client_id,
-            },
-        });
-
-        // if (!response.ok) {
-        //     const message = `Failed to fetch Twitch user data: ${response.statusText}`;
-        //     throw new Error(message);
-        // }
-
-        const json = await response.json();
-        const [userData] = json.data;
-        const { id, login, email, profile_image_url } = userData;
-        setTwitchUser({ id, login, email, profile_image_url })
-        alert(`Twitch user: ${email}`);
-        Cookies.set('user',userData.email)
-        setLoading(false);
-        router.push('/dashboard')
-    }
-    const { code } = router.query ;
+    const { code } = router.query;
     useEffect(() => {
-        alert(code)
-        if(code){
+        if (code) {
             exchangeCodeForToken(code);
         }
-    }, [])
+    }, [code])
     return (
         <>
             {loading ? <LoaderPage /> : <p>Redirecting successfully .................... </p>}
         </>
     )
 }
+
+export default TwitchAuth
