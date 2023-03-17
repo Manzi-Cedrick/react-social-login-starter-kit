@@ -47,7 +47,7 @@ const InstagramAuth = () => {
       const profile = await profileResponse.json();
       setinstaUser(profile);
       Cookies.set('user', profile?.username);
-      Cookies.set('user-id', profile?.id);
+      Cookies.set('user-id-insta', profile?.id);
       alert(`User logged In ${profile?.username}`);
       notifySuccess(profile?.message);
       authService.setToken(access_token);

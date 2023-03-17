@@ -5,6 +5,7 @@ const Dashboard = () => {
     const username = Cookies.get('user');
     const id = Cookies.get('user-id');
     const email = Cookies.get('user-email');
+    const twitch_id = Cookies.get('user-id-insta')
     const isTwitchUser = id && email;
 
     return (
@@ -19,11 +20,11 @@ const Dashboard = () => {
                     </ul>
                 </>
             )}
-            {!isTwitchUser && id && (
+            {!isTwitchUser && twitch_id && (
                 <>
                     <p className='font-bold text-indigo-500'>Instagram User Info</p>
                     <ul>
-                        <li>{id ? `The Instagram Id: ${id}` : ''}</li>
+                        <li>{twitch_id ? `The Instagram Id: ${twitch_id}` : ''}</li>
                     </ul>
                 </>
             )}
