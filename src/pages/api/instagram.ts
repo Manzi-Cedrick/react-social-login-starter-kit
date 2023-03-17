@@ -31,7 +31,6 @@ export default async function instagramHandler(
       redirect_uri: Instagram.callback_url,
       code,
     });
-
     const response = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       headers: {
@@ -39,8 +38,6 @@ export default async function instagramHandler(
       },
       body: data.toString(),
     });
-
-    // if (response.ok) {
     const { access_token } = await response.json();
     const profileUrl = `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`;
     const profileResponse = await fetch(profileUrl);
@@ -50,9 +47,6 @@ export default async function instagramHandler(
     } else {
       res.status(profileResponse.status)
     }
-    // } else {
-    //   res.status(response.status)
-    // }
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Internal server error' });

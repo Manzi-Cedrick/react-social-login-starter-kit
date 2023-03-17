@@ -7,7 +7,7 @@ import Link from 'next/link'
 import authService from '@/services/auth.service';
 import { notifyError, notifyInfo, notifySuccess } from '@/utils/alerts';
 import Logo from '@/assets/logo';
-import { Twitch } from '@/utils/creds';
+import { Instagram, Twitch } from '@/utils/creds';
 import axios from 'axios';
 import Head from 'next/head';
 
@@ -142,8 +142,8 @@ const Login = () => {
         }
     }
     const authInstagram = () => {
-        const clientID = '2040498642821593';
-        const redirectURI = 'https://react-social-login-starter-kit-version2.vercel.app/instagram-auth';
+        const clientID = Instagram.client_id;
+        const redirectURI = Instagram.callback_url;
         const responseType = 'code';
         const scope = 'user_profile user_media';
         const url = `https://www.instagram.com/oauth/authorize?app_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&instagram_auth=true`;
@@ -215,12 +215,6 @@ const Login = () => {
                                         <FaInstagram className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                         Sign in with Instagram
                                     </button>
-                                    {/* <InstagramLogin
-                                    clientId="ad6d0ba2753ddfe70dd3a33522df5e7a"
-                                    onSuccess={successResponseInstagram}
-                                    onFailure={failResponseInstagram}
-                                    cssClass={classes.login__btn}
-                                >Login with Instagram</InstagramLogin> */}
                                     <button type='button' onClick={twitchAuthorize} className='w-full group flex place-items-center gap-8 justify-center bg-slate-800 hover:bg-indigo-500 duration-500 text-white font-semibold py-5 rounded-md text-[12px] '>
                                         <FaTwitch className='text-md group-hover:scale-150 duration-500 hover:text-xl' />
                                         Sign in with Twitch

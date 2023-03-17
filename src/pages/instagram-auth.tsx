@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import authService from '@/services/auth.service';
 import Cookies from 'js-cookie';
 import LoaderPage from '@/components/loaders/LoaderPage';
+import { Instagram } from '@/utils/creds';
 
 interface User {
   id: string;
@@ -13,16 +14,13 @@ const InstagramAuth = () => {
   const [instaUser, setinstaUser] = useState<User>({
     id: '', username: ''
   });
-  const [twitchUser, settwitchUser] = useState<User>({
-    id: '', username: ''
-  })
   const router = useRouter();
   const fetchInstagramProfile = async (authorizationCode: any) => {
     const code = authorizationCode;
     const dataObj = {
-      clientID: '2040498642821593',
-      clientSecret: '07fd638959f54656f00f2f71d9dee9ce',
-      redirectURI: 'https://react-social-login-starter-kit-version2.vercel.app/instagram-auth',
+      clientID: `${Instagram.client_id}`,
+      clientSecret: `${Instagram.client_secret}`,
+      redirectURI: `${Instagram.callback_url}`,
       grantType: 'authorization_code',
       url: `/api/instagram`,
       code: `${code}`
@@ -46,7 +44,6 @@ const InstagramAuth = () => {
     const profileResponse = await fetch(profileUrl);
     if (profileResponse.ok) {
       const profile = await profileResponse.json();
-      console.log("The profile",profile)
       setinstaUser(profile);
       Cookies.set('user', profile?.username);
       alert(`User logged In ${profile?.username}`)
@@ -60,7 +57,6 @@ const InstagramAuth = () => {
   const isInstagramFlow = router.asPath.includes("instagram");
 
   useEffect(() => {
-    // alert(code)
     if (code) {
       fetchInstagramProfile(code);
     }

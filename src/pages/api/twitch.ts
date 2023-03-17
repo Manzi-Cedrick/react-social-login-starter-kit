@@ -22,10 +22,19 @@ export default async function twitchHandler(
     req: NextApiRequest,
     res: NextApiResponse<TwitchResponseData & TwitchProfileResponseData & { message: string }>
 ) {
-    // if (req.method !== 'POST') {
-    //     res.status(405).send({ message: 'Method not allowed' });
-    //     return;
-    // }
+    if (req.method !== 'POST') {
+        res.status(405).send({
+            message: 'Method not allowed',
+            access_token: '',
+            scope: [],
+            token_type: '',
+            expires_in: 0,
+            id: '',
+            login: '',
+            email: ''
+        });
+        return;
+    }
 
     try {
         const { code } = req.body as TwitchRequestData;
