@@ -48,7 +48,7 @@ const TwitchAuth = () => {
           const dataRes = await response.json();
           console.log("the response",dataRes)
           setTwitchData(dataRes);
-          Cookies.set('user',dataRes?.login);
+          Cookies.set('user-twitch',dataRes?.login);
           Cookies.set('user-email',dataRes?.email);
           Cookies.set('user-id',dataRes?.id);
           localStorage.setItem('user',dataRes)
