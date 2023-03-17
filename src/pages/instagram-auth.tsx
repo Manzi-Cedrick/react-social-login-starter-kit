@@ -4,6 +4,7 @@ import authService from '@/services/auth.service';
 import Cookies from 'js-cookie';
 import LoaderPage from '@/components/loaders/LoaderPage';
 import { Instagram } from '@/utils/creds';
+import { notifySuccess } from '@/utils/alerts';
 
 interface User {
   id: string;
@@ -46,7 +47,9 @@ const InstagramAuth = () => {
       const profile = await profileResponse.json();
       setinstaUser(profile);
       Cookies.set('user', profile?.username);
-      alert(`User logged In ${profile?.username}`)
+      Cookies.set('user-id', profile?.id);
+      alert(`User logged In ${profile?.username}`);
+      notifySuccess(profile?.message);
       authService.setToken(access_token);
       router.push('/dashboard');
     } else {

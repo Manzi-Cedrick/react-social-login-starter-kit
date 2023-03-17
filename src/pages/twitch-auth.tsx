@@ -6,6 +6,7 @@ import LoaderPage from '@/components/loaders/LoaderPage';
 import { Twitch } from '@/utils/creds';
 import twitchHandler from './api/twitch';
 import { AccessToken } from 'twitch-auth/lib';
+import { notifySuccess } from '@/utils/alerts';
 
 interface TwitchUserData {
     id: string;
@@ -48,7 +49,11 @@ const TwitchAuth = () => {
           console.log("the response",dataRes)
           setTwitchData(dataRes);
           Cookies.set('user',dataRes?.login);
+          Cookies.set('user-email',dataRes?.email);
+          Cookies.set('user-id',dataRes?.id);
+          localStorage.setItem('user',dataRes)
           setLoading(false)
+          notifySuccess(dataRes?.message);
           return router.push('/dashboard')
     };
     const { code } = router.query;

@@ -43,7 +43,7 @@ export default async function instagramHandler(
     const profileResponse = await fetch(profileUrl);
     if (profileResponse.ok) {
       const profile = await profileResponse.json();
-      res.json({ access_token, profile });
+      res.json({ access_token, profile, message: "User retrieved successfully" });
     } else {
       res.status(profileResponse.status)
     }
