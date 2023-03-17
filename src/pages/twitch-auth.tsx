@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import authService from '@/services/auth.service';
 import Cookies from 'js-cookie';
 import LoaderPage from '@/components/loaders/LoaderPage';
-import { Twitch } from '@/utils/creds';
-import twitchHandler from './api/twitch';
-import { AccessToken } from 'twitch-auth/lib';
 import { notifySuccess } from '@/utils/alerts';
 
 interface TwitchUserData {
@@ -39,18 +35,14 @@ const TwitchAuth = () => {
             },
             body: JSON.stringify({ code }),
           });
-    
           if (!response.ok) {
             const error = await response.json();
             throw new Error(error.message);
           }
-    
           const dataRes = await response.json();
           console.log("the response",dataRes)
           setTwitchData(dataRes);
-          Cookies.set('user-twitch',dataRes?.login);
-          Cookies.set('user-email',dataRes?.email);
-          Cookies.set('user-id',dataRes?.id);
+          Cookies.set('user',JSON.stringify(dataRes));
           localStorage.setItem('user',dataRes)
           setLoading(false)
           notifySuccess(dataRes?.message);
