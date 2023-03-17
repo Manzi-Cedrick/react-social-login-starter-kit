@@ -1,12 +1,25 @@
 import Cookies from 'js-cookie'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Dashboard = () => {
+    const [removeUserEmail, setRemoveUserEmail] = useState(false);
     const username = Cookies.get('user');
     const id = Cookies.get('user-id');
     const email = Cookies.get('user-email');
-    const twitch_id = Cookies.get('user-id-insta')
+    const insta_id = Cookies.get('user-id-insta')
     const isTwitchUser = id && email;
+
+    useEffect(() => {
+        if (insta_id) {
+            setRemoveUserEmail(true);
+        }
+    }, [insta_id]);
+
+    useEffect(() => {
+        if (removeUserEmail) {
+            Cookies.remove('user-email');
+        }
+    }, [removeUserEmail]);
 
     return (
         <div className='bg-slate-800 text-white min-h-screen p-20 pb-0'>
@@ -20,11 +33,11 @@ const Dashboard = () => {
                     </ul>
                 </>
             )}
-            {!isTwitchUser && twitch_id && (
+            {!isTwitchUser && insta_id && (
                 <>
                     <p className='font-bold text-indigo-500'>Instagram User Info</p>
                     <ul>
-                        <li>{twitch_id ? `The Instagram Id: ${twitch_id}` : ''}</li>
+                        <li>{insta_id ? `The Instagram Id: ${insta_id}` : ''}</li>
                     </ul>
                 </>
             )}
